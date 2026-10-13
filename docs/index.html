@@ -7,7 +7,7 @@
 (async()=>{const status=document.getElementById('status'),link=document.getElementById('link');
 try{const r=await fetch('https://api.github.com/repos/thakstk/CDCrave-Releases/releases?per_page=100',{cache:'no-store'});
 if(!r.ok)throw Error('API '+r.status);const releases=await r.json();
-const assets=releases.filter(x=>!x.draft).flatMap(x=>(x.assets||[]).filter(a=>/^LP-CD_Crave_v.+_KST\\.apk$/i.test(a.name)).map(a=>({url:a.browser_download_url,name:a.name,time:a.created_at})));
+const assets=releases.filter(x=>!x.draft).flatMap(x=>(x.assets||[]).filter(a=>/^LP-CD_Crave_v.+_KST\.apk$/i.test(a.name)).map(a=>({url:a.browser_download_url,name:a.name,time:a.created_at})));
 assets.sort((a,b)=>Date.parse(b.time)-Date.parse(a.time));
 if(!assets.length)throw Error('APK가 아직 없습니다');
 link.href=assets[0].url;link.textContent=assets[0].name;status.textContent='최신 APK 다운로드를 시작합니다.';
